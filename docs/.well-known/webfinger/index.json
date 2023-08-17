@@ -1,9 +1,9 @@
 {
-    "subject": "acct:Bertitude@indieweb.social",
+    "subject": "acct:@Bertitude@indieweb.social",
     "aliases": [
         "https://indieweb.social/@Bertitude",
         "https://indieweb.social/users/Bertitude",
-        "Bertitude@indieweb.social"
+        "@Bertitude@indieweb.social"
     ],
     "links": [
         {
