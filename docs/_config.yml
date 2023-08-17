@@ -33,6 +33,7 @@ plugins:
   - jekyll-feed
   - jekyll/mastodon_webfinger
 
+include: [".well-known"]
 
 
 # Exclude from processing.
