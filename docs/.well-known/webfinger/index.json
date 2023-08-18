@@ -1,24 +1,26 @@
+
 {
-    "subject": "acct:Bertitude@indieweb.social",
-    "aliases": [
+    "subject":"acct:Bertitude@indieweb.social",
+    "aliases":
+    [
         "https://indieweb.social/@Bertitude",
-        "https://indieweb.social/users/Bertitude",
-        "@Bertitude@indieweb.social"
+        "https://indieweb.social/users/Bertitude"
     ],
-    "links": [
-        {
-            "rel": "http://webfinger.net/rel/profile-page",
-            "type": "text/html",
-            "href": "https://indieweb.social/@Bertitude"
-        },
-        {
-            "rel": "self",
-            "type": "application/activity+json",
-            "href": "https://indieweb.social/users/Bertitude"
-        },
-        {
-            "rel": "http://ostatus.org/schema/1.0/subscribe",
-            "template": "https://indieweb.social/authorize_interaction?uri={uri}"
-        }
-    ]
+"links":
+[
+    {
+        "rel":"http://webfinger.net/rel/profile-page",
+        "type":"text/html",
+        "href":"https://indieweb.social/@Bertitude"
+    },
+    {
+        "rel":"self",
+        "type":"application/activity+json",
+        "href":"https://indieweb.social/users/Bertitude"
+    },
+    {
+        "rel":"http://ostatus.org/schema/1.0/subscribe",
+        "template":"https://indieweb.social/authorize_interaction?uri={uri}"
+    }
+]
 }
