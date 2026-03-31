@@ -19,12 +19,7 @@ jobs:
       run: |
         echo "sha=${{ github.sha }}" >> $GITHUB_ENV
 
-        - name: Debug Info
-      run: |
-        echo "Commit message: ${{ github.event.head_commit.message }}"
-        echo "SHA: ${{ github.sha }}"
-        git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ github.sha }}
-
+    
     - name: Identify Added Blog Post
       id: identify_added_blog_post
       run: |
