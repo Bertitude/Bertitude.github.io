@@ -1,15 +1,16 @@
 name: Blog2Masto
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'docs/_posts/*.md'
 
 jobs:
   post:
-    runs-on: ubuntu-latest        # <-- removed the if: line entirely
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4        # updated from v2
       with:
         fetch-depth: 0
 
@@ -22,7 +23,7 @@ jobs:
       id: identify_added_blog_post
       run: |
         sha=${{ env.sha }}
-        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep 'docs/_posts/.*\.md')
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep '_posts/.*\.md')
 
         if [ -n "$post_file" ]; then
           new_post_file=$(echo "$post_file" | head -n 1)
@@ -39,7 +40,7 @@ jobs:
           echo "post_url=$post_url" >> $GITHUB_ENV
           echo "post_tags=$tags" >> $GITHUB_ENV
         fi
-        
+
     - name: Debug Variables
       run: |
         echo "post_title=${{ env.post_title }}"
@@ -48,18 +49,18 @@ jobs:
         echo "--- git diff-tree output ---"
         git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }}
         echo "--- front matter of detected file ---"
-        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }} | grep '_posts/.*\.md')
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }} | grep 'docs/_posts/.*\.md')
         echo "post_file=$post_file"
         if [ -n "$post_file" ]; then
           cat "$post_file"
         else
           echo "NO FILE DETECTED"
         fi
-        
+
     - name: Post to Mastodon
       id: post_to_mastodon
-      if: ${{ env.post_title != '' && env.post_url != '' }}
-      uses: cbrgm/mastodon-github-action@v1.0.3
+      if: env.post_title != '' && env.post_url != ''
+      uses: cbrgm/mastodon-github-action@v2   # updated from v1.0.3
       with:
         message: |
           New blog: "${{ env.post_title }}"
