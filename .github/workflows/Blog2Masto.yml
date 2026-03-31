@@ -39,7 +39,23 @@ jobs:
           echo "post_url=$post_url" >> $GITHUB_ENV
           echo "post_tags=$tags" >> $GITHUB_ENV
         fi
-
+        
+    - name: Debug Variables
+      run: |
+        echo "post_title=${{ env.post_title }}"
+        echo "post_url=${{ env.post_url }}"
+        echo "post_tags=${{ env.post_tags }}"
+        echo "--- git diff-tree output ---"
+        git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }}
+        echo "--- front matter of detected file ---"
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }} | grep '_posts/.*\.md')
+        echo "post_file=$post_file"
+        if [ -n "$post_file" ]; then
+          cat "$post_file"
+        else
+          echo "NO FILE DETECTED"
+        fi
+        
     - name: Post to Mastodon
       id: post_to_mastodon
       if: ${{ env.post_title != '' && env.post_url != '' }}
