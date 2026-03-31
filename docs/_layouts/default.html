@@ -1,45 +1,30 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-<div class="post-slug-header">
-  <div class="wrapper">
-    <a class="post-back-link" href="{{ "/" | relative_url }}">&larr; Writing</a>
-    {%- assign date_format = site.minima.date_format | default: "%B %-d, %Y" -%}
-    {%- assign location = page.categories | first | default: "Int. The Page" -%}
-    <div class="post-slug-line">{{ location }} &mdash; {{ page.date | date: date_format }}</div>
-    {%- if page.categories.size > 0 -%}
-      <div class="post-slug-meta">Category: {{ page.categories | join: ", " }}</div>
-    {%- endif -%}
-  </div>
-</div>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- seo -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+    {%- feed_meta -%}
+  </head>
 
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <body>
 
-  <div class="wrapper">
+    {%- include header.html -%}
 
-    <span class="post-transition">Cut to:</span>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
 
-    <header class="post-header">
-      <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
-      <p class="post-meta-line">
-        {%- if site.author -%}{{ site.author | escape }} &middot; {%- endif -%}
-        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-          {{ page.date | date: date_format }}
-        </time>
-      </p>
-    </header>
+    {%- include footer.html -%}
 
-    <div class="post-content e-content" itemprop="articleBody">
-      {{ content }}
-    </div>
+  </body>
 
-    {%- if site.disqus.shortname -%}
-      {%- include disqus_comments.html -%}
-    {%- endif -%}
-
-    <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
-
-  </div>
-
-</article>
+</html>
