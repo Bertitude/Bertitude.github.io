@@ -57,6 +57,19 @@ jobs:
           echo "NO FILE DETECTED"
         fi
 
+    - name: Test Secrets
+      run: |
+        if [ -z "${{ secrets.MASTODON_URL }}" ]; then
+          echo "MASTODON_URL is EMPTY"
+        else
+          echo "MASTODON_URL is set"
+        fi
+        if [ -z "${{ secrets.MASTODON_ACCESS_TOKEN }}" ]; then
+          echo "MASTODON_ACCESS_TOKEN is EMPTY"
+        else
+          echo "MASTODON_ACCESS_TOKEN is set"
+        fi
+
     - name: Post to Mastodon
       id: post_to_mastodon
       if: env.post_title != '' && env.post_url != ''
