@@ -2,7 +2,7 @@ name: Blog2Masto
 on:
   push:
     paths:
-      - 'socs/_posts/*.md'
+      - 'docs/_posts/*.md'
 
 jobs:
   post:
