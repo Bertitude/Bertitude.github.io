@@ -60,8 +60,10 @@ jobs:
     - name: Post to Mastodon
       id: post_to_mastodon
       if: env.post_title != '' && env.post_url != ''
-      uses: cbrgm/mastodon-github-action@v2   # updated from v1.0.3
+      uses: cbrgm/mastodon-github-action@v2
       with:
+        url: ${{ secrets.MASTODON_URL }}              # moved from env to with
+        access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}   # moved from env to with
         message: |
           New blog: "${{ env.post_title }}"
           ${{ env.post_url }}
