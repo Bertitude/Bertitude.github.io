@@ -4,15 +4,23 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+<p class="char-cue">Kaiel Eytle</p>
+<p class="char-paren">(writer, director, producer)</p>
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+<p class="char-dialogue">
+  A Guyanese-Jamaican filmmaker making movies and television from the Caribbean to the world.
+  I put dreams on the screen — and occasionally on the page.
+</p>
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+<p class="char-dialogue">
+  I write in Obsidian. I think in stories. I build things that didn't exist before I needed them.
+</p>
 
-
-[jekyll-organization]: https://github.com/jekyll
+<div class="credits-block" style="margin-top: 32px;">
+  <span class="credits-label">Credits</span>
+  <div class="credit-row"><span class="credit-role">Written by</span><span class="credit-val">Kaiel Eytle</span></div>
+  <div class="credit-row"><span class="credit-role">Directed by</span><span class="credit-val">Kaiel Eytle</span></div>
+  <div class="credit-row"><span class="credit-role">Produced by</span><span class="credit-val">Kaiel Eytle</span></div>
+  <div class="credit-row"><span class="credit-role">Location</span><span class="credit-val">Jamaica / Guyana</span></div>
+  <div class="credit-row"><span class="credit-role">Contact</span><span class="credit-val"><a href="mailto:work@kaiel.me">work@kaiel.me</a></span></div>
+</div>

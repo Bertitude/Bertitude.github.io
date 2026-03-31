@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+<div class="post-slug-header">
+  <div class="wrapper">
+    <a class="post-back-link" href="{{ "/" | relative_url }}">&larr; Writing</a>
+    {%- assign date_format = site.minima.date_format | default: "%B %-d, %Y" -%}
+    {%- assign location = page.categories | first | default: "Int. The Page" -%}
+    <div class="post-slug-line">{{ location }} &mdash; {{ page.date | date: date_format }}</div>
+    {%- if page.categories.size > 0 -%}
+      <div class="post-slug-meta">Category: {{ page.categories | join: ", " }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="wrapper">
+
+    <span class="post-transition">Cut to:</span>
+
+    <header class="post-header">
+      <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+      <p class="post-meta-line">
+        {%- if site.author -%}{{ site.author | escape }} &middot; {%- endif -%}
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ page.date | date: date_format }}
+        </time>
+      </p>
+    </header>
+
+    <div class="post-content e-content" itemprop="articleBody">
+      {{ content }}
+    </div>
+
+    {%- if site.disqus.shortname -%}
+      {%- include disqus_comments.html -%}
+    {%- endif -%}
+
+    <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+
+  </div>
+
+</article>

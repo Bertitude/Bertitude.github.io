@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<div class="slug-bar">
+  <div class="wrapper">
+    <div class="slug-line">Ext. The Internet &mdash; Present Day</div>
+    <div class="slug-action">{{ site.description | escape }}</div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="home">
+
+    <div class="home-main">
+      {{ content }}
+
+      {%- if site.posts.size > 0 -%}
+        <span class="section-label">Recent Writing</span>
+        <ul class="post-list">
+          {%- for post in site.posts -%}
+          <li>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            {%- assign location = post.categories | first | default: "Int. The Page" -%}
+            <span class="post-scene-label">{{ location }} &mdash; {{ post.date | date: date_format }}</span>
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+            {%- if post.excerpt -%}
+              <span class="post-excerpt-text">{{ post.excerpt | strip_html | truncatewords: 20 }}</span>
+            {%- endif -%}
+          </li>
+          {%- endfor -%}
+        </ul>
+        <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+      {%- endif -%}
+    </div>
+
+    <div class="home-sidebar">
+
+      {%- if site.mastodon or site.twitter_username or site.github_username -%}
+      <div class="sidebar-block">
+        <span class="sidebar-label">Find Me</span>
+        {%- if site.mastodon -%}
+          <span class="sidebar-item">
+            <a href="https://{{ site.mastodon.instance }}/@{{ site.mastodon.username }}" rel="me">
+              @{{ site.mastodon.username }}@{{ site.mastodon.instance }}
+            </a>
+          </span>
+        {%- endif -%}
+        {%- if site.github_username -%}
+          <span class="sidebar-item">
+            <a href="https://github.com/{{ site.github_username }}">github/{{ site.github_username }}</a>
+          </span>
+        {%- endif -%}
+        {%- if site.twitter_username -%}
+          <span class="sidebar-item">
+            <a href="https://twitter.com/{{ site.twitter_username }}">@{{ site.twitter_username }}</a>
+          </span>
+        {%- endif -%}
+        {%- if site.email -%}
+          <span class="sidebar-item">
+            <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+          </span>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+
+      {%- assign all_categories = site.posts | map: "categories" | join: "," | split: "," | uniq | sort -%}
+      {%- if all_categories.size > 0 -%}
+      <div class="sidebar-block">
+        <span class="sidebar-label">Categories</span>
+        {%- for cat in all_categories -%}
+          {%- if cat != "" -%}
+            <span class="sidebar-item">{{ cat }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+
+    </div>
+
+  </div>
+</div>

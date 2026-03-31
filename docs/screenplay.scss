@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<div class="post-slug-header">
+  <div class="wrapper">
+    <a class="post-back-link" href="{{ "/" | relative_url }}">&larr; Home</a>
+    <div class="post-slug-line">Int. {{ page.title | escape }} &mdash; The Present</div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <article class="post">
+    <div class="post-content">
+      <span class="post-transition">Cut to:</span>
+      {{ content }}
+    </div>
+  </article>
+</div>
