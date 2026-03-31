@@ -1,19 +1,477 @@
----
-layout: default
----
+// === Screenplay Theme — Custom Styles ===
 
-<div class="post-slug-header">
-  <div class="wrapper">
-    <a class="post-back-link" href="{{ "/" | relative_url }}">&larr; Home</a>
-    <div class="post-slug-line">Int. {{ page.title | escape }} &mdash; The Present</div>
-  </div>
-</div>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
 
-<div class="wrapper">
-  <article class="post">
-    <div class="post-content">
-      <span class="post-transition">Cut to:</span>
-      {{ content }}
-    </div>
-  </article>
-</div>
+// --- Base overrides ---
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  font-family: $base-font-family;
+}
+
+a {
+  color: $brand-color;
+  text-decoration: none;
+  border-bottom: 0.5px solid $grey-color-light;
+  transition: border-color 0.15s ease;
+
+  &:visited { color: $brand-color; }
+  &:hover {
+    color: $text-color;
+    text-decoration: none;
+    border-bottom-color: $text-color;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $base-font-family;
+  font-weight: 700;
+  color: $brand-color;
+}
+
+// --- Site header ---
+
+.site-header {
+  background-color: $brand-color;
+  border-top: none;
+  border-bottom: none;
+  min-height: auto;
+  padding: 16px 0;
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.site-title {
+  font-family: $base-font-family;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f5f2eb !important;
+  line-height: 1;
+  float: none;
+
+  &:visited { color: #f5f2eb !important; }
+  &:hover { color: rgba(245,242,235,0.7) !important; border-bottom: none; }
+
+  border-bottom: none;
+}
+
+.site-nav {
+  float: none;
+  line-height: 1;
+
+  .page-link {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245, 242, 235, 0.45);
+    border-bottom: none;
+    margin-right: 0;
+    margin-left: 28px;
+
+    &:hover {
+      color: #f5f2eb;
+      border-bottom: none;
+    }
+  }
+
+  @include media-query($on-palm) {
+    position: absolute;
+    top: 9px;
+    right: 15px;
+    background-color: $brand-color;
+    border: 0.5px solid rgba(245,242,235,0.15);
+    border-radius: 4px;
+    text-align: right;
+
+    label[for="nav-trigger"] { display: block; float: right; width: 36px; height: 36px; z-index: 2; cursor: pointer; }
+    .menu-icon { display: block; float: right; width: 36px; height: 26px; line-height: 0; padding-top: 10px; text-align: center;
+      svg { fill: rgba(245,242,235,0.6); }
+    }
+    input ~ .trigger { clear: both; display: none; }
+    input:checked ~ .trigger { display: block; padding-bottom: 5px; }
+    .page-link { display: block; padding: 5px 10px; margin-left: 20px; color: rgba(245,242,235,0.7); }
+  }
+}
+
+// --- Slug bar (hero/intro block) ---
+
+.slug-bar {
+  background-color: $brand-color;
+  padding: 0 0 20px;
+
+  .wrapper { padding-top: 0; }
+}
+
+.slug-line {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f5f2eb;
+  border-bottom: 0.5px solid rgba(245, 242, 235, 0.15);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.slug-action {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(245, 242, 235, 0.55);
+  max-width: 560px;
+}
+
+// --- Post list (home) ---
+
+.page-content {
+  padding-top: 0;
+}
+
+.home {
+  display: grid;
+  grid-template-columns: 1fr 210px;
+  gap: 0;
+  align-items: start;
+
+  @include media-query($on-palm) {
+    display: block;
+  }
+}
+
+.home-main {
+  border-right: 0.5px solid $grey-color-light;
+  padding: 28px 32px 28px 0;
+
+  @include media-query($on-palm) {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+.home-sidebar {
+  padding: 28px 0 28px 28px;
+
+  @include media-query($on-palm) {
+    padding-left: 0;
+    border-top: 0.5px solid $grey-color-light;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.post-list {
+  margin-left: 0;
+  list-style: none;
+
+  > li {
+    padding: 16px 0;
+    border-bottom: 0.5px solid $grey-color-light;
+    margin-bottom: 0;
+  }
+}
+
+.post-scene-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.post-link {
+  font-family: $base-font-family;
+  font-size: 17px;
+  font-weight: 700;
+  color: $brand-color;
+  display: block;
+  margin-bottom: 4px;
+  border-bottom: none;
+
+  &:hover { color: $grey-color-dark; border-bottom: none; }
+}
+
+.post-excerpt-text {
+  font-size: 12px;
+  color: $grey-color-dark;
+  line-height: 1.55;
+}
+
+.post-meta {
+  font-size: 11px;
+  color: $grey-color;
+  letter-spacing: 0.06em;
+}
+
+// --- Sidebar ---
+
+.sidebar-block {
+  margin-bottom: 24px;
+}
+
+.sidebar-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.sidebar-item {
+  font-size: 12px;
+  color: $grey-color-dark;
+  padding: 5px 0;
+  border-bottom: 0.5px solid #e0dbd0;
+  display: block;
+
+  a {
+    color: $grey-color-dark;
+    border-bottom: none;
+    &:hover { color: $brand-color; border-bottom: none; }
+  }
+}
+
+// --- RSS link ---
+
+.rss-subscribe {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-top: 20px;
+
+  a { color: $grey-color; border-bottom: 0.5px solid $grey-color-light; }
+}
+
+// --- Post page ---
+
+.post-header {
+  margin-bottom: 0;
+}
+
+.post-slug-header {
+  background-color: $brand-color;
+  padding: 8px 0 20px;
+
+  .wrapper { padding-top: 0; }
+}
+
+.post-slug-line {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f5f2eb;
+  border-bottom: 0.5px solid rgba(245,242,235,0.12);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.post-slug-meta {
+  font-size: 11px;
+  color: rgba(245,242,235,0.4);
+  letter-spacing: 0.06em;
+}
+
+.post-transition {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-bottom: 16px;
+  margin-top: 32px;
+  display: block;
+}
+
+.post-title {
+  font-family: $base-font-family;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: $brand-color;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.post-meta-line {
+  font-size: 11px;
+  color: $grey-color;
+  letter-spacing: 0.08em;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 0.5px solid $grey-color-light;
+}
+
+.post-content {
+  margin-bottom: 40px;
+  font-size: 15px;
+  line-height: 1.85;
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $brand-color;
+    margin: 32px 0 12px;
+  }
+
+  h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $grey-color-dark;
+    margin: 24px 0 10px;
+  }
+
+  blockquote {
+    border-left: 2px solid $grey-color-light;
+    color: $grey-color-dark;
+    font-style: italic;
+    padding-left: 20px;
+    margin-left: 0;
+  }
+}
+
+.post-back-link {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,242,235,0.4);
+  border-bottom: none;
+  padding: 16px 0;
+
+  &:hover { color: #f5f2eb; border-bottom: none; }
+}
+
+// --- About page / regular pages ---
+
+.page-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-bottom: 24px;
+}
+
+// Character cue (about page)
+.char-cue {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $brand-color;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.char-paren {
+  font-size: 12px;
+  color: $grey-color;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.char-dialogue {
+  margin: 0 40px 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: $text-color;
+
+  @include media-query($on-palm) {
+    margin: 0 0 20px;
+  }
+}
+
+// Credits block (about page sidebar)
+.credits-block {
+  border-left: 0.5px solid $grey-color-light;
+  padding-left: 28px;
+
+  @include media-query($on-palm) {
+    border-left: none;
+    border-top: 0.5px solid $grey-color-light;
+    padding-left: 0;
+    padding-top: 24px;
+    margin-top: 24px;
+  }
+}
+
+.credits-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $grey-color;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.credit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 0.5px solid $grey-color-light;
+  font-size: 13px;
+}
+
+.credit-role { color: $grey-color; }
+.credit-val  { font-weight: 700; color: $brand-color; }
+
+// --- Footer ---
+
+.site-footer {
+  background-color: $brand-color;
+  border-top: none;
+  padding: 14px 0;
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.footer-heading { display: none; }
+
+.footer-col-wrapper { display: none; }
+
+.footer-left {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,242,235,0.3);
+}
+
+.footer-right {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(245,242,235,0.3);
+
+  a {
+    color: rgba(245,242,235,0.5);
+    border-bottom: none;
+    &:hover { color: #f5f2eb; border-bottom: none; }
+  }
+}
