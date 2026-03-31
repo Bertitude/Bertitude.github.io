@@ -2,7 +2,7 @@ name: Blog2Masto
 on:
   push:
     paths:
-      - '_posts/*.md'
+      - 'socs/_posts/*.md'
 
 jobs:
   post:
@@ -22,7 +22,7 @@ jobs:
       id: identify_added_blog_post
       run: |
         sha=${{ env.sha }}
-        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep '_posts/.*\.md')
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep 'docs/_posts/.*\.md')
 
         if [ -n "$post_file" ]; then
           new_post_file=$(echo "$post_file" | head -n 1)
