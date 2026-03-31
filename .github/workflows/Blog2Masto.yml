@@ -23,7 +23,7 @@ jobs:
       id: identify_added_blog_post
       run: |
         sha=${{ env.sha }}
-        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep '_posts/.*\.md')
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep '_posts/.*\.md' || true)
 
         if [ -n "$post_file" ]; then
           new_post_file=$(echo "$post_file" | head -n 1)
@@ -41,34 +41,8 @@ jobs:
           echo "post_tags=$tags" >> $GITHUB_ENV
         fi
 
-    - name: Debug Variables
-      run: |
-        echo "post_title=${{ env.post_title }}"
-        echo "post_url=${{ env.post_url }}"
-        echo "post_tags=${{ env.post_tags }}"
-        echo "--- git diff-tree output ---"
-        git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }}
-        echo "--- front matter of detected file ---"
-        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A ${{ env.sha }} | grep 'docs/_posts/.*\.md')
-        echo "post_file=$post_file"
-        if [ -n "$post_file" ]; then
-          cat "$post_file"
-        else
-          echo "NO FILE DETECTED"
-        fi
-
-    - name: Test Secrets
-      run: |
-        if [ -z "${{ secrets.MASTODON_URL }}" ]; then
-          echo "MASTODON_URL is EMPTY"
-        else
-          echo "MASTODON_URL is set"
-        fi
-        if [ -z "${{ secrets.MASTODON_ACCESS_TOKEN }}" ]; then
-          echo "MASTODON_ACCESS_TOKEN is EMPTY"
-        else
-          echo "MASTODON_ACCESS_TOKEN is set"
-        fi
+    - name: Wait for GitHub Pages to deploy
+      run: sleep 90
 
     - name: Post to Mastodon
       id: post_to_mastodon
