@@ -2,13 +2,12 @@ name: Blog2Masto
 on:
   push:
     paths:
-      - 'docs/_posts/*.md'
+      - '_posts/*.md'
 
 jobs:
   post:
-    if: contains(github.event.head_commit.message, 'new blog post:')
-    runs-on: ubuntu-latest
-    steps:                          # <-- this was missing
+    runs-on: ubuntu-latest        # <-- removed the if: line entirely
+    steps:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
@@ -19,12 +18,11 @@ jobs:
       run: |
         echo "sha=${{ github.sha }}" >> $GITHUB_ENV
 
-    
     - name: Identify Added Blog Post
       id: identify_added_blog_post
       run: |
         sha=${{ env.sha }}
-        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep 'docs/_posts/.*\.md')
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep '_posts/.*\.md')
 
         if [ -n "$post_file" ]; then
           new_post_file=$(echo "$post_file" | head -n 1)
