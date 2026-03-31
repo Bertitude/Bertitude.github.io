@@ -5,13 +5,19 @@ $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
 $base-font-weight: 400;
 $base-line-height: 1.75;
+
 $spacing-unit:     30px;
+
 $text-color:       #2e2c28;
 $background-color: #f5f2eb;
 $brand-color:      #1a1814;
+
 $grey-color:       #9a9488;
 $grey-color-light: #d4cfc5;
 $grey-color-dark:  #4a4640;
+
+$table-text-align: left;
+
 $content-width:    860px;
 $on-palm:          600px;
 $on-laptop:        860px;
