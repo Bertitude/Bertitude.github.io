@@ -2,50 +2,45 @@ name: Blog2Masto
 on:
   push:
     paths:
-      - 'docs/_posts/*.md'
+      - '_posts/*.md'
 
 jobs:
   post:
     if: contains(github.event.head_commit.message, 'new blog post:')
     runs-on: ubuntu-latest
+    steps:                          # <-- this was missing
     - name: Checkout code
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+
     - name: Get Commit SHA
       id: get_commit_sha
-      if: ${{ !env.ACT }}
       run: |
-        echo "Running on Github"
         echo "sha=${{ github.sha }}" >> $GITHUB_ENV
+
     - name: Identify Added Blog Post
       id: identify_added_blog_post
       run: |
-        if [ -z ${{ env.sha }} ]; then
-          echo "using secret local SHA for 'act' testing"
-          sha=${{ secrets.TEST_SHA }}
-        else
-          sha=${{ env.sha }}
-        fi
+        sha=${{ env.sha }}
+        post_file=$(git diff-tree --no-commit-id -r --name-only --diff-filter=A $sha | grep '_posts/.*\.md')
 
         if [ -n "$post_file" ]; then
           new_post_file=$(echo "$post_file" | head -n 1)
 
-          # Extract information from file's front matter using awk and grep
           title=$(awk '/^title:/ {$1=""; sub(/^[ \t]+/, ""); print}' "$new_post_file" | tr -d '"')
           date=$(echo "$new_post_file" | grep -oP '\d{4}-\d{2}-\d{2}' | sed 's/-/\//g')
           tags=$(awk '/^tags:/ {for (i=2; i<=NF; i++) print "#" $i}' "$new_post_file" | tr -d '[,]' | tr '\n' ' ')
 
-          # Construct the URL based on Jekyll site's URL structure
           base_url="${{ secrets.BLOG_URL }}"
           url=$(echo "$title" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:]' | sed -E 's/[[:space:]]+/-/g' | sed -E 's/^-//;s/-$//')
           post_url="$base_url/$date/$url"
 
-          # Add pertinent Github environment variables
           echo "post_title=$title" >> $GITHUB_ENV
           echo "post_url=$post_url" >> $GITHUB_ENV
           echo "post_tags=$tags" >> $GITHUB_ENV
         fi
+
     - name: Post to Mastodon
       id: post_to_mastodon
       if: ${{ env.post_title != '' && env.post_url != '' }}
