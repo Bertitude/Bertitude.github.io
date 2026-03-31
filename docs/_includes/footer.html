@@ -1,0 +1,13 @@
+<footer class="site-footer">
+  <div class="wrapper">
+    <span class="footer-left">
+      &copy; {{ site.time | date: "%Y" }} {{ site.author | default: site.title | escape }}
+    </span>
+    <span class="footer-right">
+      {%- if site.mastodon -%}
+        <a href="https://{{ site.mastodon.instance }}/@{{ site.mastodon.username }}" rel="me">@{{ site.mastodon.username }}@{{ site.mastodon.instance }}</a> &nbsp;&middot;&nbsp;
+      {%- endif -%}
+      Fade out.
+    </span>
+  </div>
+</footer>
