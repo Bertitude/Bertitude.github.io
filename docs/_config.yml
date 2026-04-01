@@ -16,11 +16,11 @@
 title: Kaiel Eytle - Maker of Movies
 email: work@kaiel.me
 description: >- # this means to ignore newlines until "baseurl:"
-  The Profile for Kaiel Eytle, Guyanese-Jamaican Writer,Director, Producer.
-  I make movies and TV. I put dreams on the screen
+  Kaiel Eytle - Guyanese-Jamaican Writer, Director, Producer.
+  I put dreams on the screen
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://kaiel.me" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: Bertitude
+twitter_username: 
 github_username:  Bertitude
 mastodon:
   username: bertitude
